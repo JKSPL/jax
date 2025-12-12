@@ -166,6 +166,7 @@ class PickleTest(jtu.JaxTestCase):
     with self.assertRaises(jax.errors.ConcretizationTypeError):
       jax.jit(pickle.dumps)(0)
 
+  @jtu.ignore_warning(category=DeprecationWarning)
   def testPickleSharding(self):
     sharding = pxla.ShardingSpec((pxla.NoSharding(), pxla.Chunked(
         (2, 2)), pxla.Unstacked(3)), (pxla.ShardedAxis(0), pxla.ShardedAxis(1),
